@@ -1,6 +1,6 @@
 # Entornos-7.5
 
-#UML - DIAGRAMAS
+# UML - DIAGRAMAS - Gestión del Sistema "GymMaster"
 
 
 # Fase 1: Análisis de Requisitos
