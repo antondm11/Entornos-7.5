@@ -105,7 +105,7 @@ Manager
 ```
 
 
-#Fase 3: Lógica del Proceso
+# Fase 3: Lógica del Proceso
 
 Diagrama de Actividades
 
@@ -132,4 +132,33 @@ AssignPlace --> EmailConfirm: [place assigned]
 EmailConfirm --> [*]
 
 ```
+
+
+# Fase 4: Ciclo de Vida del Objeto
+
+Diagrama de Estados
+
+``` mermaid
+
+stateDiagram-v2
+%% Diagrama de Estados para la Reserva duratne todo su Ciclo de Vida
+%% Draft: Está creada o creándose pero todavía no se ha enviado por la aplicación
+[*] --> Draft
+%%% Issued: Está creada y enviada a través de la aplicación, quedando pendiente 
+Draft --> Issued : send()
+%% Confirmed: Está confirmada
+Issued --> Confirmed : confirm()
+%% Cancelled: Está cancelada
+Issued --> Cancelled: cancel()
+%% Realizada: Fue confirmada y el Socio se presentó a su plaza reservada
+Confirmed --> CheckedIn: checkIn()
+%% NotShownUp: Fue confirmada pero el Socio no se presentó a su plaza reservada
+Confirmed --> NotShownUp: didNotShowUp()
+%% Estados Finales
+CheckedIn --> [*]
+NotShownUp --> [*]
+Cancelled --> [*]
+
+```
+
 
