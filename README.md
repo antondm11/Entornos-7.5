@@ -105,5 +105,31 @@ Manager
 ```
 
 
+#Fase 3: Lógica del Proceso
 
+Diagrama de Actividades
+
+``` mermaid
+
+stateDiagram-v2
+%% Diagrama de Actividades para Validar Reserva
+[*] --> ReceiveRequest
+%% Recibir petición y revisar datos del Socio
+ReceiveRequest --> CheckMemberData 
+%% Según si tiene cuota pagada o no decidir siguiente acción del flujo
+state check_fee <<choice>>
+CheckMemberData --> check_fee
+check_fee --> ProcessReservation: [fee paid]
+check_fee --> NotifyReservationIneligible: [fee not paid]
+%% Si el Socio ha pagado su cuota (reserva elegible), revisar aforo
+state check_capacity <<choice>>
+ProcessReservation --> check_capacity
+check_capacity --> AssignPlace: [capacity not full]
+check_capacity --> NotifyNoPlaceAvailable : [full capacity]
+%% Si hay aforo, establecer la Reserva asignando y bloqueando plaza
+AssignPlace --> EmailConfirm: [place assigned]
+%% Finalmente, una vez asignada y reservada la plaza, enviar Email de confirmación
+EmailConfirm --> [*]
+
+```
 
